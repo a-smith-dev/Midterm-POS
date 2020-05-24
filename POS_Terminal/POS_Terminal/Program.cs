@@ -10,7 +10,13 @@ namespace POS_Terminal
             // Business Name:
 
             // Text file with all items and fields/properties delimited.
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "\\menu.txt");
+            var currentDirectory = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\netcoreapp3.1", "");
+            var path = Path.Combine(currentDirectory, "menu.txt"); // Path is done!
+            // Now, using a StreamReader, we need to assign strings in menu.txt to object properties for each product item.
+
+            var input = File.ReadAllText(path); // working solution, but we need to use StreamReader for something more permanent.
+            Console.WriteLine(input);
+
             // use a streamreader with (path) to get the file.
             // Read each line and look for a delimiter to break up each piece.
 
