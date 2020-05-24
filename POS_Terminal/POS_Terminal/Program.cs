@@ -10,20 +10,22 @@ namespace POS_Terminal
             // Business Name:
 
             // Text file with all items and fields/properties delimited.
-            File.Create("menu.txt");
-            
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "\\menu.txt");
+            // use a streamreader with (path) to get the file.
+            // Read each line and look for a delimiter to break up each piece.
+
             // Create a menu and ask the user to choose an item by name or number.
-                // choose quantity
-                // give line total
+            // choose quantity
+            // give line total
 
             // Allow the user to re-display the menu and to complete the purchase.
 
             // Display subtotal, sales tax, and grand total.
 
             // Collect payment by three types: cash, credit, and check.
-                // Cash: ask for amount tendered and provide change.
-                // Check: ask for the check number.
-                // Credit: ask for card number, expiration, and CVV.
+            // Cash: ask for amount tendered and provide change.
+            // Check: ask for the check number.
+            // Credit: ask for card number, expiration, and CVV.
 
             // Display a receipt with all the items ordered, subtotal, grand total, and appropriate payment info.
 
