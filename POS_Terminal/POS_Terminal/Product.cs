@@ -17,7 +17,6 @@ namespace POS_Terminal
         // Description
         // Price
         // Quantity
-        // Size?
         // 
 
     }
