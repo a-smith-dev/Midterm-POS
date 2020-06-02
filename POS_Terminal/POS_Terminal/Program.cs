@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 
 namespace POS_Terminal
@@ -7,20 +9,26 @@ namespace POS_Terminal
     {
         static void Main(string[] args)
         {
-            // Business Name:
+            // Business Name: Sharpbucks
 
             // Text file with all items and fields/properties delimited.
-            var currentDirectory = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\netcoreapp3.1", "");
-            var path = Path.Combine(currentDirectory, "menu.txt"); // Path is done!
-            // Now, using a StreamReader, we need to assign strings in menu.txt to object properties for each product item.
+            var menu = new Menu();
+            var receipt = new List<Product>();
+            menu.FillMenu();
 
-            var input = File.ReadAllText(path); // working solution, but we need to use StreamReader for something more permanent.
-            Console.WriteLine(input);
 
-            // use a streamreader with (path) to get the file.
-            // Read each line and look for a delimiter to break up each piece.
+            menu.Display();
 
-            // Create a menu and ask the user to choose an item by name or number.
+            Console.Write("Please choose from the menu items above. Enter 1-12: ");
+            var choice = Validate.PositiveNumber(Console.ReadLine(), menu.GetCount());
+            menu.AddProduct(choice);
+
+
+            menu.DisplayReceipt();
+
+
+
+            // Create a menu and ask the user to choose an item by number.
             // choose quantity
             // give line total
 
@@ -39,5 +47,7 @@ namespace POS_Terminal
 
 
         }
+
+
     }
 }
