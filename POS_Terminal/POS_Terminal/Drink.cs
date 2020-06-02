@@ -1,20 +1,42 @@
-﻿namespace POS_Terminal
+﻿using System;
+
+namespace POS_Terminal
 {
     public class Drink : Product
     {
-        public string Size
-        { get; set; }
-
-        public decimal MakeSizeMedium(string Size)
+        public Drink()
         {
-            Price *= (decimal).10;
-            return Price;
+
+        }
+        public Drink(string name, decimal price)
+        {
+            Name = name;
+            Price = price;
+            Console.Write("What size would you like? (enter small, medium, or large) ");
+            switch (Validate.Size(Console.ReadLine()))
+            {
+                case "small":
+                    Name += " (Small)";
+                    break;
+                case "medium":
+                    MakeSizeMedium();
+                    break;
+                case "large":
+                    MakeSizeLarge();
+                    break;
+            }
         }
 
-        public decimal MakeSizeLarge(string Size)
+        public void MakeSizeMedium()
         {
-            Price *= (decimal).20;
-            return Price;
+            Price *= (decimal)1.10;
+            Name += " (Medium)";
+        }       
+
+        public void MakeSizeLarge()
+        {
+            Price *= (decimal)1.20;
+            Name += " (Large)";
         }
     }
 }

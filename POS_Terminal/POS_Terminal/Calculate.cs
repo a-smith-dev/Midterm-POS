@@ -7,16 +7,21 @@ namespace POS_Terminal
     public abstract class Calculate
     {
         // Where the calculation methods will be defined.
-        private const double _TAX = 0.06;
+        private const decimal _TAX = 0.06m;
 
-        public static double Subtotal(double price, int quantity)
+        public static decimal Subtotal(decimal price, int quantity)
         {
             return price * quantity;
         }
 
-        public static string Total(double subtotal)
+        public static decimal SubtotalTax(decimal subtotal)
         {
-            return (subtotal * _TAX).ToString("#.##");
+            return subtotal * _TAX;
+        }
+
+        public static decimal Total(decimal subtotal)
+        {
+            return SubtotalTax(subtotal) + subtotal;
         }
     }
 }

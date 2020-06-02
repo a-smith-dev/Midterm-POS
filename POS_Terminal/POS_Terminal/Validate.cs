@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace POS_Terminal
 {
@@ -8,25 +8,15 @@ namespace POS_Terminal
     {
         // Define methods to validate user input based on context.
 
-        public static int PositiveNumber(string input)
+        public static int PositiveNumber(string input, int max)
         {
             var number = 0;
-            while (int.TryParse(input, out number) || number < 1)
+            while (!int.TryParse(input, out number) || number < 1 || number > max)
             {
-                Console.Write("Please enter a positive number");
+                Console.Write($"Please enter a number between 1 and {max}: ");
                 input = Console.ReadLine();
             }
             return number;
-        }
-
-        public static int ValidQuantity(Product item, int amount)
-        {
-            while (amount > item.Quantity)
-            {
-                Console.Write($"{item.Name} has {item.Quantity} available. Please enter a smaller number.");
-                amount = PositiveNumber(Console.ReadLine());
-            }
-            return amount;
         }
 
         public static string ValidChoice(List<Product> items, string choice)
@@ -49,6 +39,28 @@ namespace POS_Terminal
                 Console.Write("Please enter a valid item from the menu.");
                 choice = Console.ReadLine();
             }
+        }
+
+        public static string Size(string response)
+        {
+            response = response.ToLower();
+            while (response != "small" && response != "medium" && response != "large")
+            {
+                Console.Write("Please enter small, medium, or large: ");
+                response = Console.ReadLine().ToLower();
+            }
+            return response;
+        }
+
+        public static string YesNo(string response)
+        {
+            response = response.ToLower();
+            while (!Regex.IsMatch(response, "^[yn]$"))
+            {
+                Console.Write("Please enter y or n: ");
+                response = Console.ReadLine().ToLower();
+            }
+            return response;
         }
     }
 }
