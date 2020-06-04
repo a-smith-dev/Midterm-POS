@@ -23,5 +23,11 @@ namespace POS_Terminal
         {
             return SubtotalTax(subtotal) + subtotal;
         }
-    }
+
+        public static decimal Change(string payment, decimal total)
+        {
+            return (decimal.Parse(payment)- total);
+        }
+
+            }
 }

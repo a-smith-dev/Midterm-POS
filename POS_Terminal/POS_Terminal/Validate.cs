@@ -62,5 +62,60 @@ namespace POS_Terminal
             }
             return response;
         }
+
+        public static decimal EnoughCash(decimal minimum, string amountTendered)
+        {
+            var number = 0m;
+            while (!decimal.TryParse(amountTendered, out number) || number < minimum)
+            {
+                Console.Write($"The total due is {minimum} please reenter the amount:  ");
+                amountTendered = Console.ReadLine();
+            }
+            return number;
+
+
+        }
+
+        public static string CardNumber(string response)
+        {
+            while (!Regex.IsMatch(response, @"^\d{16}$"))
+            {
+                Console.Write("Please enter a 16 digit card number: ");
+                response = Console.ReadLine();
+            }
+            
+            return Regex.Replace(response, "[0-9](?=[0-9]{4})", "X");
+
+
+        }
+
+        public static void CardExp(string response)
+        {
+            while (!Regex.IsMatch(response, @"^([1][1-2][2]\d)$|^([0][6-9][2]\d)$"))
+            {
+                Console.Write("Please enter the expiration date in MMYY format: ");
+                response = Console.ReadLine();
+            }
+        }
+
+        public static void CardCVV(string response)
+        {
+            while (!Regex.IsMatch(response, @"^\d{3}$"))
+            {
+                Console.Write("Please enter the 3 digit CVV: ");
+                response = Console.ReadLine();
+            }
+
+        }
+
+        public static void CheckNo(string response)
+        {
+            while (!Regex.IsMatch(response, @"^\d{3}$|^\d{4}$"))
+            {
+                Console.Write("Please enter the 3 - 4 digit check number: ");
+                response = Console.ReadLine();
+            }
+
+        }
     }
 }

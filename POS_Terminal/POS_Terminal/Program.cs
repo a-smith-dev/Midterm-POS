@@ -13,8 +13,7 @@ namespace POS_Terminal
 
             // Text file with all items and fields/properties delimited.
             var menu = new Menu();
-            var receipt = new List<Product>();
-            menu.FillMenu();
+            var payment = new List<string>();
 
 
             menu.Display();
@@ -24,17 +23,30 @@ namespace POS_Terminal
             menu.AddProduct(choice);
 
 
-            menu.DisplayReceipt();
+            Console.WriteLine("How would you like to pay? (Cash, Credit or Check?)");
+            switch (Console.ReadLine())
+            {
+                case "cash":
+                    payment = PaymentCash(menu);
+                    break;
+                case "credit":
+                    payment = PaymentCredit();
+                    break;
+                case "check":
+                    payment = PaymentCheck();
+                    break;
+
+            }
+
+
+            menu.DisplayReceipt(payment);
 
 
 
-            // Create a menu and ask the user to choose an item by number.
-            // choose quantity
-            // give line total
+           
 
             // Allow the user to re-display the menu and to complete the purchase.
 
-            // Display subtotal, sales tax, and grand total.
 
             // Collect payment by three types: cash, credit, and check.
             // Cash: ask for amount tendered and provide change.
@@ -47,6 +59,33 @@ namespace POS_Terminal
 
 
         }
+        public static List<string> PaymentCash(Menu menu)
+        {
+            var payment = new List<string>() { "Cash" };
+            Console.WriteLine($"Please enter the cash amount provided: ");
+            payment.Add($"{Validate.EnoughCash(menu.ReceiptTotal(), Console.ReadLine())}");
+            return payment;
+        }
+        public static List<string> PaymentCredit()
+        {
+            var payment = new List<string>();
+            Console.WriteLine($"Please enter the credit card number: ");
+            payment.Add($"credit \n{Validate.CardNumber(Console.ReadLine())}");
+            Console.WriteLine("Please enter the expiration date in MMYY format: ");
+            Validate.CardExp(Console.ReadLine());
+            Console.WriteLine("Please enter the CVV: ");
+            Validate.CardCVV(Console.ReadLine());
+            return payment;
+        }
+
+        public static List<string> PaymentCheck()
+        {
+            var payment = new List<string>() { "Check" };
+            Console.WriteLine($"Please enter the check number (3 - 4 digits): ");
+            Validate.CheckNo(Console.ReadLine());
+            return payment;
+        }
+
 
 
     }

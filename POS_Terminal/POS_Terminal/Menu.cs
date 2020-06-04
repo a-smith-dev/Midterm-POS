@@ -14,6 +14,7 @@ namespace POS_Terminal
         {
             _menu = new List<Product>();
             _receipt = new List<Product>();
+            FillMenu();
         }
 
         public void Display()
@@ -24,10 +25,10 @@ namespace POS_Terminal
                  Console.WriteLine($"{counter}. {item.Name} \t${item.Price}");
                  Console.WriteLine($"{item.Description}\n");
                  counter++;
-            }
+             }
         }
 
-        public void FillMenu()
+        private void FillMenu()
         {
            var currentDirectory = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\netcoreapp3.1", "");
            var path = Path.Combine(currentDirectory, "menu.txt"); // Path is done!
@@ -101,7 +102,7 @@ namespace POS_Terminal
                 _receipt.Add(new Drink(_menu[index].Name, _menu[index].Price));
             }
             AskQuantity(index);
-            // Possibly something for a separate method:   _receipt[index].Quantity = _menu[index].Quantity;
+            
         }
 
         public void AskQuantity(int index)
@@ -113,8 +114,13 @@ namespace POS_Terminal
             _menu[index].Quantity -= response;
         }
 
-        public void DisplayReceipt()
+        public void DisplayReceipt(List<string> payment)   // remember to add payment method
         {
+            var total = ReceiptTotal();
+            if (payment.Count == 1)
+            {
+                payment.Add($"{total}");
+            }
             var dashedLine = "---------------------------------------------------";
             var counter = 1;
             decimal subtotal = 0;
@@ -135,6 +141,7 @@ namespace POS_Terminal
             Console.WriteLine($" Subtotal:                                  {subtotal:C}");
             Console.WriteLine($" Total Tax:                                 {Calculate.SubtotalTax(subtotal):C}");
             Console.WriteLine($" Total:                                     {Calculate.Total(subtotal):C}");
+            Console.WriteLine($"{payment[0]}:                               {Calculate.Change(payment[1], total):C}");
             Console.WriteLine(dashedLine);
 
         }
@@ -142,6 +149,20 @@ namespace POS_Terminal
         public void EmptyReceipt()
         {
             _receipt = new List<Product>();
+        }
+
+        public decimal ReceiptTotal()
+        {
+            var subtotal = 0m;
+
+            foreach (var item in _receipt)
+            {
+                
+                subtotal += Calculate.Subtotal(item.Price, item.Quantity);
+                
+            }
+
+            return Calculate.Total(subtotal);
         }
 
 
