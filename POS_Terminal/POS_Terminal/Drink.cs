@@ -16,7 +16,7 @@ namespace POS_Terminal
             switch (Validate.Size(Console.ReadLine()))
             {
                 case "small":
-                    Name += " (Small)";
+                    Name += " (S)";
                     break;
                 case "medium":
                     MakeSizeMedium();
@@ -30,13 +30,13 @@ namespace POS_Terminal
         public void MakeSizeMedium()
         {
             Price *= (decimal)1.10;
-            Name += " (Medium)";
+            Name += " (M)";
         }       
 
         public void MakeSizeLarge()
         {
             Price *= (decimal)1.20;
-            Name += " (Large)";
+            Name += " (L)";
         }
     }
 }

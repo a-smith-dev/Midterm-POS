@@ -7,6 +7,6 @@ Peppermint Tea!Drink!Seasonal refreshmint. Emphasis on mint.!3.49!13!
 Cheesecake!Food!New York style dessert with a graham cracker crust.!3.99!5!
 Brownie!Food!Gooey and delicious. Now with chocolate chips inside.!3.49!8!
 Chocolate Donut!Food!Chocolate icing on a fresh warm donut.!1.99!12!
-Croissant!Food!Flakey and buttery.!2.49!8!
-Bagel!Food!Baked fresh daily.!1.99!12!
+Croissant!Food!Flaky and buttery.!2.49!8!
+Famous Bagel!Food!Baked fresh daily. Our world famous recipe.!1.99!12!
 Southwest Panini!Food!Grilled chicken sandwich with our signature southwest salsa.!4.99!8!

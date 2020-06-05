@@ -63,6 +63,17 @@ namespace POS_Terminal
             return response;
         }
 
+        public static string PaymentType(string response)
+        {
+            response = response.ToLower();
+            while (response != "cash" && response != "credit" && response != "check")
+            {
+                Console.Write("Please answer Cash, Credit, or Check: ");
+                response = Console.ReadLine().ToLower();
+            }
+            return response;
+        }
+
         public static decimal EnoughCash(decimal minimum, string amountTendered)
         {
             var number = 0m;

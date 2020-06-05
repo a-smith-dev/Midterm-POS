@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace POS_Terminal
 {
    public class Menu
    {
         private List<Product> _menu;
-        private List<Product> _receipt; // running total of items the user wants
+        private List<Product> _receipt;
+        private string _path = Path.Combine(Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\netcoreapp3.1", ""), "menu.txt");
 
         public Menu()
         {
@@ -30,9 +30,7 @@ namespace POS_Terminal
 
         private void FillMenu()
         {
-           var currentDirectory = Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\netcoreapp3.1", "");
-           var path = Path.Combine(currentDirectory, "menu.txt"); // Path is done!
-            using (StreamReader sr = new StreamReader(path))
+            using (var sr = new StreamReader(_path))
            {
                var counter = 0;
               
@@ -56,6 +54,19 @@ namespace POS_Terminal
                    counter++;
                }
            }
+        }
+
+        public void EmptyMenu()
+        {
+            using (var sw = new StreamWriter(_path, append: false))
+            {
+                var itemLine = string.Empty;
+                foreach (var product in _menu)
+                {
+                    itemLine = $"{product.Name}!{product.Category}!{product.Description}!{product.Price}!{product.Quantity}!";
+                    sw.WriteLine(itemLine);
+                }
+            }
         }
 
         public string GetItemName(int index)
@@ -108,40 +119,45 @@ namespace POS_Terminal
         public void AskQuantity(int index)
         {
             var recentItem = _receipt.Count - 1;
-            Console.Write($"How many {_receipt[recentItem].Name} would you like? ");
+            Console.Write($"How many {_receipt[recentItem].Name}s would you like? There are {_menu[index].Quantity} available. ");
             var response = Validate.PositiveNumber(Console.ReadLine(), _menu[index].Quantity);
             _receipt[recentItem].Quantity = response;
             _menu[index].Quantity -= response;
         }
 
-        public void DisplayReceipt(List<string> payment)   // remember to add payment method
+        public void DisplayReceipt(List<string> payment)
         {
-            var total = ReceiptTotal();
             if (payment.Count == 1)
             {
-                payment.Add($"{total}");
+                payment.Add($"{ReceiptTotal()}");
             }
-            var dashedLine = "---------------------------------------------------";
+            var dashedLine = "-------------------------------------------------------";
             var counter = 1;
             decimal subtotal = 0;
             decimal itemSubtotal;
+
             Console.WriteLine($"\n{dashedLine}");
-            Console.WriteLine(" ITEM NAME                     QTY           AMOUNT");
+
+            Console.WriteLine(" ITEM NAME\t\t\tQTY\t\tAMOUNT");
+
             Console.WriteLine(dashedLine);
+
             foreach (var item in _receipt)
             {
                 itemSubtotal = Calculate.Subtotal(item.Price, item.Quantity);
                 subtotal += itemSubtotal;
-                Console.WriteLine($" {counter}. {item.Name}   {item.Quantity} x {item.Price:C}       {itemSubtotal:C}");
+                Console.WriteLine($" {counter}. {item.Name}   \t\t{item.Quantity} x {item.Price:C}\t{itemSubtotal:C}");
                 counter++;
             }
+
             Console.WriteLine(dashedLine);
 
-            // Calculate subtotal, display tax, and total.
-            Console.WriteLine($" Subtotal:                                  {subtotal:C}");
-            Console.WriteLine($" Total Tax:                                 {Calculate.SubtotalTax(subtotal):C}");
-            Console.WriteLine($" Total:                                     {Calculate.Total(subtotal):C}");
-            Console.WriteLine($"{payment[0]}:                               {Calculate.Change(payment[1], total):C}");
+            Console.WriteLine($" Subtotal:\t\t\t\t\t{subtotal:C}");
+            Console.WriteLine($" Tax {Calculate.ShowTax() * 100}%:\t\t\t\t\t{Calculate.SubtotalTax(subtotal):C}");
+            Console.WriteLine($" Total:\t\t\t\t\t\t{Calculate.Total(subtotal):C}");
+            Console.WriteLine($" {payment[0]}  \t\t\t\t{decimal.Parse(payment[1]):C}");
+            Console.WriteLine($" Change:\t\t\t\t\t{Calculate.Change(payment[1], ReceiptTotal()):C}");
+            
             Console.WriteLine(dashedLine);
 
         }
@@ -157,15 +173,10 @@ namespace POS_Terminal
 
             foreach (var item in _receipt)
             {
-                
                 subtotal += Calculate.Subtotal(item.Price, item.Quantity);
-                
             }
 
             return Calculate.Total(subtotal);
         }
-
-
-
     }
 }
