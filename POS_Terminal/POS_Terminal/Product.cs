@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Text;
-
+﻿
 namespace POS_Terminal
 {
     public class Product
     {
+        public Product()
+        {
+
+        }
+
+        public Product(string name, decimal price)
+        {
+            Name = name;
+            Price = price;
+        }
+
         public string Name { get; set; }
 
         public string Category { get; set; }

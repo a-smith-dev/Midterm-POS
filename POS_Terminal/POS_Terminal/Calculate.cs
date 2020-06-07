@@ -6,13 +6,13 @@ namespace POS_Terminal
 {
     public abstract class Calculate
     {
-        // Where the calculation methods will be defined.
         private const decimal _TAX = 0.06m;
 
         public static decimal ShowTax()
         {
             return _TAX;
         }
+
         public static decimal Subtotal(decimal price, int quantity)
         {
             return price * quantity;
@@ -32,6 +32,5 @@ namespace POS_Terminal
         {
             return (decimal.Parse(payment)- total);
         }
-
     }
 }

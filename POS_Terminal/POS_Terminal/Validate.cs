@@ -6,9 +6,7 @@ namespace POS_Terminal
 {
     public abstract class Validate
     {
-        // Define methods to validate user input based on context.
-
-        public static int PositiveNumber(string input, int max)
+        public static int NumberInRange(string input, int max)
         {
             var number = 0;
             while (!int.TryParse(input, out number) || number < 1 || number > max)
@@ -19,28 +17,6 @@ namespace POS_Terminal
             return number;
         }
 
-        public static string ValidChoice(List<Product> items, string choice)
-        {
-            bool valid = false;
-            while (true)
-            {
-                foreach (var item in items)
-                {
-                    if (item.Name == choice)
-                    {
-                        valid = true;
-                        break;
-                    }
-                }
-                if (valid)
-                {
-                    return choice;
-                }
-                Console.Write("Please enter a valid item from the menu.");
-                choice = Console.ReadLine();
-            }
-        }
-
         public static string Size(string response)
         {
             response = response.ToLower();
@@ -49,6 +25,7 @@ namespace POS_Terminal
                 Console.Write("Please enter small, medium, or large: ");
                 response = Console.ReadLine().ToLower();
             }
+
             return response;
         }
 
@@ -60,6 +37,7 @@ namespace POS_Terminal
                 Console.Write("Please enter y or n: ");
                 response = Console.ReadLine().ToLower();
             }
+
             return response;
         }
 
@@ -71,6 +49,7 @@ namespace POS_Terminal
                 Console.Write("Please answer Cash, Credit, or Check: ");
                 response = Console.ReadLine().ToLower();
             }
+
             return response;
         }
 
@@ -79,30 +58,27 @@ namespace POS_Terminal
             var number = 0m;
             while (!decimal.TryParse(amountTendered, out number) || number < minimum)
             {
-                Console.Write($"The total due is {minimum} please reenter the amount:  ");
+                Console.Write($"The total due is {minimum} please reenter the amount: ");
                 amountTendered = Console.ReadLine();
             }
+
             return number;
-
-
         }
 
         public static string CardNumber(string response)
         {
             while (!Regex.IsMatch(response, @"^\d{16}$"))
             {
-                Console.Write("Please enter a 16 digit card number: ");
+                Console.Write("Please enter a 16 digit card number without dashes: ");
                 response = Console.ReadLine();
             }
-            
+
             return Regex.Replace(response, "[0-9](?=[0-9]{4})", "X");
-
-
         }
 
-        public static void CardExp(string response)
+        public static void CardExpiration(string response)
         {
-            while (!Regex.IsMatch(response, @"^([1][1-2][2]\d)$|^([0][6-9][2]\d)$"))
+            while (!Regex.IsMatch(response, @"^([1][1-2][2]\d)$|^([0][6-9][2][0])$|^([0]\d[2][1-9])$"))
             {
                 Console.Write("Please enter the expiration date in MMYY format: ");
                 response = Console.ReadLine();
@@ -116,17 +92,15 @@ namespace POS_Terminal
                 Console.Write("Please enter the 3 digit CVV: ");
                 response = Console.ReadLine();
             }
-
         }
 
-        public static void CheckNo(string response)
+        public static void CheckNumber(string response)
         {
             while (!Regex.IsMatch(response, @"^\d{3}$|^\d{4}$"))
             {
                 Console.Write("Please enter the 3 - 4 digit check number: ");
                 response = Console.ReadLine();
             }
-
         }
     }
 }

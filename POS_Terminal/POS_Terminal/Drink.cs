@@ -8,11 +8,12 @@ namespace POS_Terminal
         {
 
         }
+
         public Drink(string name, decimal price)
         {
             Name = name;
             Price = price;
-            Console.Write("What size would you like? (enter small, medium, or large) ");
+            Console.Write($"What size {Name} would you like? (enter small, medium, or large) ");
             switch (Validate.Size(Console.ReadLine()))
             {
                 case "small":
