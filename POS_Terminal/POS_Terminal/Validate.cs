@@ -77,7 +77,7 @@ namespace POS_Terminal
 
         public static void CardExpiration(string response)
         {
-            while (!Regex.IsMatch(response, @"^([1][1-2][2]\d)$|^([0][6-9][2][0])$|^([0]\d[2][1-9])$"))
+            while (!Regex.IsMatch(response, @"^([1][0-2][2]\d)$|^([0][6-9][2][0])$|^([0]\d[2][1-9])$"))
             {
                 Console.Write("Please enter the expiration date in MMYY format: ");
                 response = Console.ReadLine();

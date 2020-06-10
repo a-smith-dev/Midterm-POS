@@ -5,7 +5,7 @@ Citrus Tea!Drink!Lemon tea with plenty of Vitamin C.!2.99!12!
 Earl Gray Tea!Drink!Just as the queen would have it.!3.99!15!
 Peppermint Tea!Drink!Seasonal refreshmint. Emphasis on mint.!3.49!13!
 Cheesecake Slice!Food!New York style dessert with a graham cracker crust.!3.99!5!
-Brownie!Food!Gooey and delicious. Now with chocolate chips inside.!3.49!8!
+Big Brownie!Food!Gooey and delicious. Now with chocolate chips inside.!3.49!8!
 Chocolate Donut!Food!Chocolate icing on a fresh warm donut.!1.99!12!
 Croissant!Food!Flaky and buttery french pastry.!2.49!8!
 Famous Bagel!Food!Baked fresh daily. Our world famous recipe.!1.99!12!

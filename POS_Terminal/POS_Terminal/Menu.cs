@@ -119,15 +119,14 @@ namespace POS_Terminal
             var dashedLine = "-------------------------------------------------------";
             var counter = 1;
             decimal subtotal = 0;
-            decimal itemSubtotal;
-
+            
             Console.WriteLine($"\n{dashedLine}");
             Console.WriteLine(" ITEM NAME\t\t\tQTY\t\tAMOUNT");
             Console.WriteLine(dashedLine);
 
             foreach (var item in _receipt)
             {
-                itemSubtotal = Calculate.Subtotal(item.Price, item.Quantity);
+                var itemSubtotal = Calculate.Subtotal(item.Price, item.Quantity);
                 subtotal += itemSubtotal;
                 Console.WriteLine($" {counter}. {item.Name}   \t\t{item.Quantity} x {item.Price:C}\t{itemSubtotal:C}");
                 counter++;
