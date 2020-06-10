@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "RFFg/IwgyC1zWvUB4yTS+b4lPRyPnhQ/psk4LbBmDRIlttj6pfxgO0Bfa2MhFzJ5D6LhBQXMyFY6wkLLLypviQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\chrisKerrr\\Source\\Repos\\Midterm-POS\\POS_Terminal\\POS_Terminal\\POS_Terminal.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\chrisKerrr\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
